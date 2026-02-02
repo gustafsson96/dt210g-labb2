@@ -4,13 +4,18 @@ import TodoList from "../components/TodoList";
 import TodoForm from "./TodoForm";
 
 function TodoPage() {
+    // State for todos fetched from backend
     const [todos, setTodos] = useState<TodoInterface[]>([]);
+
+    // State for error messages
     const [error, setError] = useState<String | null>(null);
 
+    // Fetch todos when component is rendered
     useEffect(() => {
         fetchTodos();
     }, []);
 
+    // Get todos from backend
     const fetchTodos = async () => {
         try {
             const res = await fetch("http://localhost:3000/todos");
@@ -23,6 +28,7 @@ function TodoPage() {
             setError("Gick ej att hämta todos.");
         }
     }
+    
     return (
         <main>
             <h1>Todo-lista:</h1>
