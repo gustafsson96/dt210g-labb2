@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { FormInterface } from "../interfaces/FormInterface"
-import type { ValidateErrorsInterface } from "../interfaces/ValidateErrorsInterface"
+import type { FormValidationInterface } from "../interfaces/FormValidationInterface"
 
 // fetchTodos as Props from parent component
 interface Props {
@@ -12,12 +12,12 @@ function TodoForm({ fetchTodos }: Props) {
     const [formData, setFormData] = useState<FormInterface>({ title: "", description: "", status: "ej påbörjad" });
 
     // State for error och success messages
-    const [errors, setErrors] = useState<ValidateErrorsInterface>({});
+    const [errors, setErrors] = useState<FormValidationInterface>({});
     const [success, setSuccess] = useState<string | null>(null);
 
     // Validate form input
-    const validateForm = (data: FormInterface): ValidateErrorsInterface => {
-        const validationErrors: ValidateErrorsInterface = {};
+    const validateForm = (data: FormInterface): FormValidationInterface => {
+        const validationErrors: FormValidationInterface = {};
 
         // Title has to be at least 3 characters
         if (!data.title || data.title.trim().length < 3) {

@@ -1,4 +1,4 @@
-export interface ValidateErrorsInterface {
+export interface FormValidationInterface {
   title?: string;
   description?: string;
 }
