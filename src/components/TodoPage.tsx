@@ -27,7 +27,7 @@ function TodoPage() {
         <main>
             <h1>Todo-lista:</h1>
             {error && <p>{error}</p>}
-            <TodoList todos={todos}/>
+            <TodoList todos={todos} onDelete={(id) => setTodos((prev) => prev.filter((todo) => todo.id !== id))}/>
         </main>
     )
 }

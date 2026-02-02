@@ -3,9 +3,10 @@ import type { TodoInterface } from "../interfaces/TodoInterface";
 
 interface Props {
     todo: TodoInterface;
+    onDelete: (id: number) => void;
 }
 
-function TodoItem({ todo }: Props) {
+function TodoItem({ todo, onDelete }: Props) {
     const [error, setError] = useState<string | null>(null);
 
     const updateStatus = async (e: any) => {
@@ -28,6 +29,19 @@ function TodoItem({ todo }: Props) {
             setError("Kunde inte uppdatera status.");
         }
     }
+
+    const deleteItem = async () => {
+        try {
+            const res = await fetch("http://localhost:3000/todos/" + todo.id, {
+                method: "DELETE",
+            });
+            if (!res.ok) throw new Error("Kunde inte radera todo");
+            onDelete(todo.id);
+        } catch (err) {
+            setError("Kunde inte radera todo");
+        }
+    }
+
     return (
         <>
             <li>
@@ -42,6 +56,7 @@ function TodoItem({ todo }: Props) {
                         <option value="avklarad">avklarad</option>
                     </select>
                 </form>
+                <button onClick={deleteItem}>Radera</button>
                 {error && <p>{error}</p>}
             </li>
         </>
