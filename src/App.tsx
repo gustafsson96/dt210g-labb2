@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import type Todo from "./interfaces/TodoInterface"
+import TodoPage from "./components/TodoPage"
 
 function App() {
   return (
     <>
+    <TodoPage />
     </>
   )
 }

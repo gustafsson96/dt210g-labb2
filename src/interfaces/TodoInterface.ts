@@ -1,6 +1,7 @@
-export default interface Todo {
+export interface TodoInterface {
   id: number;
   title: string;
   description: string;
-  status: 'Ej påbörjad' | 'Pågående' | 'Avklarad';
+  status: 'ej påbörjad' | 'pågående' | 'avklarad';
 }
+
