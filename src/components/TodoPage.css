@@ -1,5 +1,10 @@
+h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
 .todo-page {
-    padding: 2rem;
+    padding: 2em;
     margin: 0 auto;
 }
 
@@ -7,12 +12,23 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 2rem;
+    justify-content: center;
+    gap: 2em;
 }
 
+.todo-page-layout>div {
+    flex: 1;
+    max-width: 600px;
+}
 
-@media (max-width: 750px) {
+@media (max-width: 1000px) {
     .todo-page-layout {
         flex-direction: column-reverse;
+        align-items: center; 
+    }
+
+    .todo-page-layout > div {
+        width: 100%;
+        max-width: none;
     }
 }

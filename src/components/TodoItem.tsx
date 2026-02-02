@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { TodoInterface } from "../interfaces/TodoInterface";
+import "./TodoItem.css"
 
 interface Props {
     todo: TodoInterface;
@@ -45,20 +46,34 @@ function TodoItem({ todo, fetchTodos }: Props) {
 
     return (
         <>
-            <li>
-                <h2>{todo.title}</h2>
-                <p>{todo.description}</p>
-                <p>Status: {todo.status}</p>
-                <form>
-                    <label htmlFor="status">Ändra status:</label>
-                    <select name="status" id={`status-${todo.id}`} defaultValue={todo.status} onChange={updateStatus}>
+            <li className="todo-item">
+                <div className="todo-item-header">
+                    <h2>{todo.title}</h2>
+                    <span className={`status status-${todo.status.replace(" ", "-")}`}>
+                        {todo.status}
+                    </span>
+                </div>
+
+                <p className="todo-description">{todo.description}</p>
+
+                <div className="todo-actions">
+                    <label htmlFor={`status-${todo.id}`}>Status</label>
+                    <select
+                        id={`status-${todo.id}`}
+                        defaultValue={todo.status}
+                        onChange={updateStatus}
+                    >
                         <option value="ej påbörjad">ej påbörjad</option>
                         <option value="pågående">pågående</option>
                         <option value="avklarad">avklarad</option>
                     </select>
-                </form>
-                <button onClick={deleteItem}>Radera</button>
-                {error && <p>{error}</p>}
+
+                    <button onClick={deleteItem} className="delete-btn">
+                        Radera
+                    </button>
+                </div>
+
+                {error && <p className="error">{error}</p>}
             </li>
         </>
     )
