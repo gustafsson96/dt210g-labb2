@@ -1,0 +1,18 @@
+.todo-page {
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.todo-page-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+
+@media (max-width: 750px) {
+    .todo-page-layout {
+        flex-direction: column-reverse;
+    }
+}

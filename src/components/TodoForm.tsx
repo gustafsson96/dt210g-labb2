@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { FormInterface } from "../interfaces/FormInterface"
 import type { FormValidationInterface } from "../interfaces/FormValidationInterface"
+import "./TodoForm.css"
 
 // fetchTodos as Props from parent component
 interface Props {
@@ -71,8 +72,7 @@ function TodoForm({ fetchTodos }: Props) {
     };
 
     return (
-
-        <form onSubmit={submitForm}>
+        <form className="todo-form" onSubmit={submitForm}>
             <h2>Lägg till en ny sak</h2>
             {success && <p style={{ color: "green" }}>{success}</p>}
             <label htmlFor="title">Titel</label>

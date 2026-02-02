@@ -3,6 +3,7 @@ import type { TodoInterface } from "../interfaces/TodoInterface";
 import TodoList from "../components/TodoList";
 import TodoForm from "./TodoForm";
 import { PacmanLoader } from "react-spinners";
+import "./TodoPage.css"
 
 function TodoPage() {
     // State for todos fetched from backend
@@ -37,7 +38,7 @@ function TodoPage() {
     }
 
     return (
-        <main>
+        <main className="todo-page">
             <h1>Todo-lista</h1>
             {error && <p>{error}</p>}
 
@@ -45,8 +46,10 @@ function TodoPage() {
                 <PacmanLoader />
             ) : (
                 <>
-                    <TodoForm fetchTodos={fetchTodos} />
-                    <TodoList todos={todos} fetchTodos={fetchTodos} />
+                    <div className="todo-page-layout">
+                        <TodoList todos={todos} fetchTodos={fetchTodos} />
+                        <TodoForm fetchTodos={fetchTodos} />
+                    </div>
                 </>
             )}
         </main>
