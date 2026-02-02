@@ -1,13 +1,20 @@
 import TodoItem from './TodoItem';
+import type { TodoInterface } from '../interfaces/TodoInterface';
 
-function TodoList() {
-  return (
-    <>
-      <ul>
+interface Props {
+    todos: TodoInterface[];
+}
 
-      </ul>
-    </>
-  )
+function TodoList({ todos }: Props) {
+    return (
+        <>
+            <ul>
+                {todos.map((todo) => (
+                    <TodoItem key={todo.id} todo={todo} />
+                ))}
+            </ul>
+        </>
+    )
 }
 
 export default TodoList;
