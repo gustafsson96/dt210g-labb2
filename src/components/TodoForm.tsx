@@ -1,5 +1,6 @@
 import { useState } from "react"
 import type { FormInterface } from "../interfaces/FormInterface"
+import type { ValidateErrorsInterface } from "../interfaces/ValidateErrorsInterface"
 
 // fetchTodos as Props from parent component
 interface Props {
@@ -11,12 +12,37 @@ function TodoForm({ fetchTodos }: Props) {
     const [formData, setFormData] = useState<FormInterface>({ title: "", description: "", status: "ej påbörjad" });
 
     // State for error och success messages
-    const [error, setError] = useState<string | null>(null);
+    const [errors, setErrors] = useState<ValidateErrorsInterface>({});
     const [success, setSuccess] = useState<string | null>(null);
+
+    // Validate form input
+    const validateForm = (data: FormInterface): ValidateErrorsInterface => {
+        const validationErrors: ValidateErrorsInterface = {};
+
+        // Title has to be at least 3 characters
+        if (!data.title || data.title.trim().length < 3) {
+            validationErrors.title = "Titel måste vara minst 3 tecken lång.";
+        }
+        // Description must be 3 - 200 characters
+        if (!data.description || data.description.trim().length < 3) {
+            validationErrors.description = "Beskrivning måste vara minst 3 tecken lång.";
+        } else if (data.description.length > 200) {
+            validationErrors.description = "Beskrivning får max vara 200 tecken.";
+        }
+
+        return validationErrors;
+    };
 
     // Function for form submission
     const submitForm = async (event: any) => {
         event.preventDefault();
+
+        const validationErrors = validateForm(formData);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            setSuccess(null);
+            return;
+        }
 
         try {
             // POST request to backend API
@@ -30,7 +56,7 @@ function TodoForm({ fetchTodos }: Props) {
 
             // Show message if to do was added successfully
             setSuccess("Todo tillagd!");
-            setError(null);
+            setErrors({});
             setFormData({ title: "", description: "", status: "ej påbörjad" });
 
             // Refresh todo list in parent component
@@ -38,7 +64,7 @@ function TodoForm({ fetchTodos }: Props) {
 
         } catch (err) {
             // Show error message if todo was not added 
-            setError("Kunde inte lägga till todo");
+            setErrors({ title: "Kunde inte lägga till todo" });
             setSuccess(null);
             console.error(err);
         }
@@ -48,14 +74,15 @@ function TodoForm({ fetchTodos }: Props) {
 
         <form onSubmit={submitForm}>
             <h2>Lägg till en ny sak</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
             {success && <p style={{ color: "green" }}>{success}</p>}
             <label htmlFor="title">Titel</label>
             <input type="text" id="title" name="title" value={formData.title} onChange={(event) => setFormData({ ...formData, title: event.target.value })} />
-
+            {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
             <label htmlFor="description">Beskrivning</label>
             <textarea name="description" id="description" value={formData.description} onChange={(event) => setFormData({ ...formData, description: event.target.value })}></textarea>
-
+            {errors.description && (
+                <p style={{ color: "red" }}>{errors.description}</p>
+            )}
             <label htmlFor="status">Status</label>
             <select name="status" id="status" value={formData.status} onChange={(event) => setFormData({ ...formData, status: event.target.value as 'ej påbörjad' | 'pågående' | 'avklarad' })}>
                 <option value="ej påbörjad">ej påbörjad</option>
