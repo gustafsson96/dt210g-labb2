@@ -28,7 +28,7 @@ function TodoPage() {
             <h1>Todo-lista:</h1>
             {error && <p>{error}</p>}
             <TodoForm fetchTodos={fetchTodos} />
-            <TodoList todos={todos} fetchTodos={fetchTodos} setError={setError} />
+            <TodoList todos={todos} fetchTodos={fetchTodos}/>
         </main>
     )
 }
