@@ -3,15 +3,15 @@ import type { TodoInterface } from '../interfaces/TodoInterface';
 
 interface Props {
     todos: TodoInterface[];
-    onDelete: (id: number) => void;
+    fetchTodos: () => void;
 }
 
-function TodoList({ todos, onDelete }: Props) {
+function TodoList({ todos, fetchTodos }: Props) {
     return (
         <>
             <ul>
                 {todos.map((todo) => (
-                    <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
+                    <TodoItem key={todo.id} todo={todo} fetchTodos={fetchTodos} />
                 ))}
             </ul>
         </>

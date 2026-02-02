@@ -3,10 +3,10 @@ import type { TodoInterface } from "../interfaces/TodoInterface";
 
 interface Props {
     todo: TodoInterface;
-    onDelete: (id: number) => void;
+    fetchTodos: () => void;
 }
 
-function TodoItem({ todo, onDelete }: Props) {
+function TodoItem({ todo, fetchTodos }: Props) {
     const [error, setError] = useState<string | null>(null);
 
     const updateStatus = async (e: any) => {
@@ -25,6 +25,7 @@ function TodoItem({ todo, onDelete }: Props) {
             });
             if (!res.ok) throw new Error("Kunde inte uppdatera status.");
             setError(null);
+            fetchTodos();
         } catch (err) {
             setError("Kunde inte uppdatera status.");
         }
@@ -36,7 +37,7 @@ function TodoItem({ todo, onDelete }: Props) {
                 method: "DELETE",
             });
             if (!res.ok) throw new Error("Kunde inte radera todo");
-            onDelete(todo.id);
+            fetchTodos();
         } catch (err) {
             setError("Kunde inte radera todo");
         }
