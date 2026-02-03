@@ -28,7 +28,7 @@ function TodoPage() {
         try {
             setLoading(true);
             setError(null);
-            const res = await fetch("http://localhost:3000/todos");
+            const res = await fetch("https://dt210g-labb2-backend.onrender.com/todos");
             if (res.ok) {
                 const data = await res.json();
                 setTodos(data);

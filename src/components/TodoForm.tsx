@@ -52,7 +52,7 @@ function TodoForm({ fetchTodos, setMessage }: Props) {
 
         try {
             // POST request to backend API
-            const res = await fetch("http://localhost:3000/todos", {
+            const res = await fetch("https://dt210g-labb2-backend.onrender.com/todos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

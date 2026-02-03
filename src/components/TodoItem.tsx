@@ -30,7 +30,7 @@ function TodoItem({ todo, fetchTodos, setMessage }: Props) {
         }
         // Update status of a todo
         try {
-            const res = await fetch("http://localhost:3000/todos/" + todo.id, {
+            const res = await fetch("https://dt210g-labb2-backend.onrender.com/todos/" + todo.id, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -50,7 +50,7 @@ function TodoItem({ todo, fetchTodos, setMessage }: Props) {
     // Delete a todo
     const deleteItem = async () => {
         try {
-            const res = await fetch("http://localhost:3000/todos/" + todo.id, {
+            const res = await fetch("https://dt210g-labb2-backend.onrender.com/todos/" + todo.id, {
                 method: "DELETE",
             });
             if (!res.ok) throw new Error("Kunde inte radera todo");
