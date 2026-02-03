@@ -100,7 +100,6 @@
 
 @media (max-width: 1000px) {
     .todo-item {
-        min-width: 0;
         max-width: 500px;
         margin: 1em auto;
     }
