@@ -4,7 +4,6 @@ h1 {
 }
 
 .todo-page {
-    padding: 2em;
     margin: 0 auto;
 }
 
@@ -14,11 +13,6 @@ h1 {
     align-items: flex-start;
     justify-content: center;
     gap: 2em;
-}
-
-.todo-page-layout>div {
-    flex: 1;
-    max-width: 600px;
 }
 
 .success-message {
@@ -45,10 +39,5 @@ h1 {
     .todo-page-layout {
         flex-direction: column-reverse;
         align-items: center;
-    }
-
-    .todo-page-layout>div {
-        width: 100%;
-        max-width: none;
     }
 }

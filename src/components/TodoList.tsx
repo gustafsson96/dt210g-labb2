@@ -1,5 +1,6 @@
 import TodoItem from './TodoItem';
 import type { TodoInterface } from '../interfaces/TodoInterface';
+import "./TodoList.css"
 
 // fetchTodos as Props from parent component
 interface Props {
