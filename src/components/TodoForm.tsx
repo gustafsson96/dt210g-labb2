@@ -6,15 +6,23 @@ import "./TodoForm.css"
 // fetchTodos as Props from parent component
 interface Props {
     fetchTodos: () => void;
+    setMessage: (msg: { type: "success" | "error"; text: string }) => void;
 }
 
-function TodoForm({ fetchTodos }: Props) {
+function TodoForm({ fetchTodos, setMessage }: Props) {
     // State for form input values
     const [formData, setFormData] = useState<FormInterface>({ title: "", description: "", status: "ej påbörjad" });
 
-    // State for error och success messages
+    // State for locsl error messages
     const [errors, setErrors] = useState<FormValidationInterface>({});
-    const [success, setSuccess] = useState<string | null>(null);
+
+    // Show message and remove after 3sec
+    const showMessage = (msg: { type: "success" | "error"; text: string }, duration = 3000) => {
+        setMessage(msg);
+        setTimeout(() => {
+            setMessage({ type: msg.type, text: "" });
+        }, duration);
+    }
 
     // Validate form input
     const validateForm = (data: FormInterface): FormValidationInterface => {
@@ -39,7 +47,6 @@ function TodoForm({ fetchTodos }: Props) {
         const validationErrors = validateForm(formData);
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-            setSuccess(null);
             return;
         }
 
@@ -53,18 +60,16 @@ function TodoForm({ fetchTodos }: Props) {
 
             if (!res.ok) throw new Error("Kunde inte lägga till todo");
 
-            // Show message if to do was added successfully
-            setSuccess("Todo tillagd!");
+          // Success
+            showMessage({ type: "success", text: "Todo tillagd!" });
             setErrors({});
             setFormData({ title: "", description: "", status: "ej påbörjad" });
 
-            // Refresh todo list in parent component
             fetchTodos();
 
         } catch (err) {
             // Show error message if todo was not added 
-            setErrors({ title: "Kunde inte lägga till todo" });
-            setSuccess(null);
+            showMessage({ type: "error", text: "Kunde inte lägga till todo" });
             console.error(err);
         }
     };
@@ -72,15 +77,17 @@ function TodoForm({ fetchTodos }: Props) {
     return (
         <form className="todo-form" onSubmit={submitForm}>
             <h2>Lägg till en ny sak</h2>
-            {success && <p style={{ color: "green" }}>{success}</p>}
+
             <label htmlFor="title">Titel</label>
             <input type="text" id="title" name="title" value={formData.title} onChange={(event) => setFormData({ ...formData, title: event.target.value })} />
             {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
+
             <label htmlFor="description">Beskrivning</label>
             <textarea name="description" id="description" value={formData.description} onChange={(event) => setFormData({ ...formData, description: event.target.value })}></textarea>
             {errors.description && (
                 <p style={{ color: "red" }}>{errors.description}</p>
             )}
+
             <label htmlFor="status">Status</label>
             <select name="status" id="status" value={formData.status} onChange={(event) => setFormData({ ...formData, status: event.target.value as 'ej påbörjad' | 'pågående' | 'avklarad' })}>
                 <option value="ej påbörjad">ej påbörjad</option>

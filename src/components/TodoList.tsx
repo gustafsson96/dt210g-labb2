@@ -5,14 +5,15 @@ import type { TodoInterface } from '../interfaces/TodoInterface';
 interface Props {
     todos: TodoInterface[];
     fetchTodos: () => void;
+    setMessage: (msg: { type: "success" | "error"; text: string }) => void;
 }
 
-function TodoList({ todos, fetchTodos }: Props) {
+function TodoList({ todos, fetchTodos, setMessage }: Props) {
     return (
         <>
             <ul>
                 {todos.map((todo) => (
-                    <TodoItem key={todo.id} todo={todo} fetchTodos={fetchTodos} />
+                    <TodoItem key={todo.id} todo={todo} fetchTodos={fetchTodos} setMessage={setMessage}/>
                 ))}
             </ul>
         </>
