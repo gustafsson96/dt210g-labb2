@@ -101,6 +101,6 @@
 @media (max-width: 1000px) {
     .todo-item {
         min-width: 0;
-        width: 90%;
+        width: 100%;
     }
 }
