@@ -2,7 +2,7 @@
 
 Den här lösningen består av en enkel Todo-applikation skapad med React och TypeScript. Användare kan skapa och radera todo-föremål samt ändra dess status. Uppgiften har lett till en bättre förståelse för tillståndshantering i React och nya kunskaper i hur man kan hämta och använda data med useEffect. 
 <br><br>
-Länk till den publicerade webbplatsen: 
+Länk till den publicerade webbplatsen: **[Laboration 2](dt210g-labb2-jugu2402.netlify.app)**
 
 ## Funktionalitet
 * Skapa nya todo-föremål med titel, beskrivning och status. 
