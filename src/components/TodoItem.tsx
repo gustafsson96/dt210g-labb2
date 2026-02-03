@@ -2,12 +2,14 @@ import { useState } from "react";
 import type { TodoInterface } from "../interfaces/TodoInterface";
 import "./TodoItem.css"
 
+// fetchTodos as Props from parent component
 interface Props {
     todo: TodoInterface;
     fetchTodos: () => void;
 }
 
 function TodoItem({ todo, fetchTodos }: Props) {
+    // State for error messages
     const [error, setError] = useState<string | null>(null);
 
     const updateStatus = async (e: any) => {
@@ -16,6 +18,7 @@ function TodoItem({ todo, fetchTodos }: Props) {
             ...todo,
             status: newStatus
         }
+        // Update status of a todo
         try {
             const res = await fetch("http://localhost:3000/todos/" + todo.id, {
                 method: "PUT",
@@ -32,6 +35,7 @@ function TodoItem({ todo, fetchTodos }: Props) {
         }
     }
 
+    // Delete a todo
     const deleteItem = async () => {
         try {
             const res = await fetch("http://localhost:3000/todos/" + todo.id, {
@@ -72,7 +76,6 @@ function TodoItem({ todo, fetchTodos }: Props) {
                         Radera
                     </button>
                 </div>
-
                 {error && <p className="error">{error}</p>}
             </li>
         </>

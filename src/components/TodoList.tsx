@@ -1,6 +1,7 @@
 import TodoItem from './TodoItem';
 import type { TodoInterface } from '../interfaces/TodoInterface';
 
+// fetchTodos as Props from parent component
 interface Props {
     todos: TodoInterface[];
     fetchTodos: () => void;

@@ -24,10 +24,8 @@ function TodoForm({ fetchTodos }: Props) {
         if (!data.title || data.title.trim().length < 3) {
             validationErrors.title = "Titel måste vara minst 3 tecken lång.";
         }
-        // Description must be 3 - 200 characters
-        if (!data.description || data.description.trim().length < 3) {
-            validationErrors.description = "Beskrivning måste vara minst 3 tecken lång.";
-        } else if (data.description.length > 200) {
+        // Description can be 200 characters max
+        if (data.description.length > 200) {
             validationErrors.description = "Beskrivning får max vara 200 tecken.";
         }
 
